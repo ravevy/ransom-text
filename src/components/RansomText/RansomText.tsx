@@ -26,7 +26,7 @@ export default function RansomText({
 
   return (
     <div aria-label={text} className={`w-fit ${wrapperClassName ?? ""}`}>
-      <span aria-hidden="true" className="inline-flex">
+      <span aria-hidden="true" className="inline-flex flex-wrap">
         {memoizedLetters}
       </span>
     </div>
@@ -72,7 +72,7 @@ const maxFiles: Record<string, number> = {
   "9": 9,
 };
 
-const validLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const validLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
 
 const getRansomLetters = (
   string: string,
@@ -85,19 +85,20 @@ const getRansomLetters = (
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toUpperCase()
-    .split("");
+    .split("")
+    .filter((letter) => validLetters.includes(letter));
 
   return letters.map((letter, index) => {
+    if (!validLetters.includes(letter)) {
+      return;
+    }
+
     if (letter === " ") {
       return (
         <span key={`${letter}-${index}`} style={{ width: size }}>
           {" "}
         </span>
       );
-    }
-
-    if (!validLetters.includes(letter)) {
-      return <span key={`${letter}-${index}`} />;
     }
 
     const used = (letterCount[letter] ?? 0) + 1;

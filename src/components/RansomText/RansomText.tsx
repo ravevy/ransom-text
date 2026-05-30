@@ -118,7 +118,7 @@ const getRansomLetters = (
         }}
       >
         <img
-          src={`${pathToImage}${letter}/${fileNumber}.png`}
+          src={`${pathToImage}${letter}/${fileNumber}.webp`}
           alt={letter}
           width={size}
           height={size}

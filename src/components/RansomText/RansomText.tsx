@@ -14,7 +14,7 @@ export default function RansomText({
   size = 40,
   wrapperClassName,
 }: RansomTextProps) {
-  const pathToImage = process.env.RANSOM_TEXT_ASSET_URL ?? DEFAULT_ASSET_URL;
+  const pathToImage = process.env.RANSOM_TEXT_ASSET_URL || DEFAULT_ASSET_URL;
 
   const memoizedLetters = useMemo(
     () => getRansomLetters(text, size, pathToImage),

@@ -38,7 +38,7 @@ Letter images are loaded from a hosted CDN by default. To use your own hosted as
 RANSOM_TEXT_ASSET_URL=https://your-cdn.example.com/letters/
 ```
 
-The URL must end with a trailing slash. Images are expected at `{RANSOM_TEXT_ASSET_URL}{LETTER}/{index}.png` (e.g. `letters/A/0.png`).
+The URL must end with a trailing slash. Images are expected at `{RANSOM_TEXT_ASSET_URL}{LETTER}/{index}.webp` (e.g. `letters/A/0.webp`).
 
 ## Accessibility
 

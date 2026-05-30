@@ -1,8 +1,15 @@
 {
   "name": "ransom-text",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A React component that renders text as ransom letter-style cut-out images",
-  "keywords": ["react", "ransom-text", "typography", "component", "ui", "fun"],
+  "keywords": [
+    "react",
+    "ransom-text",
+    "typography",
+    "component",
+    "ui",
+    "fun"
+  ],
   "author": "ravevy",
   "license": "MIT",
   "repository": {
@@ -21,7 +28,9 @@
       "require": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

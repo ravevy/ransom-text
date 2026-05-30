@@ -16,5 +16,3 @@ jobs:
         uses: bitovi/github-actions-storybook-to-github-pages@v1.0.4
         with:
           path: storybook-static
-        env:
-          RANSOM_TEXT_ASSET_URL: ${{ vars.RANSOM_TEXT_ASSET_URL }}

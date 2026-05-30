@@ -10,15 +10,6 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
   ],
   framework: "@storybook/react-vite",
-  async viteFinal(config) {
-    config.define = {
-      ...config.define,
-      "process.env.RANSOM_TEXT_ASSET_URL": JSON.stringify(
-        process.env.RANSOM_TEXT_ASSET_URL || null,
-      ),
-    };
-    return config;
-  },
 };
 
 export default config;

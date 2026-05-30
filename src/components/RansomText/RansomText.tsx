@@ -7,15 +7,15 @@ export interface RansomTextProps {
   text: string;
   size?: number;
   wrapperClassName?: string;
+  assetUrl?: string;
 }
 
 export default function RansomText({
   text,
   size = 40,
   wrapperClassName,
+  assetUrl: pathToImage = DEFAULT_ASSET_URL,
 }: RansomTextProps) {
-  const pathToImage = process.env.RANSOM_TEXT_ASSET_URL || DEFAULT_ASSET_URL;
-
   const memoizedLetters = useMemo(
     () => getRansomLetters(text, size, pathToImage),
     [text, size, pathToImage],

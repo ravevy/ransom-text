@@ -17,4 +17,4 @@ jobs:
         with:
           path: storybook-static
         env:
-          RANSOM_TEXT_ASSET_URL: ${{ secrets.RANSOM_TEXT_ASSET_URL }}
+          RANSOM_TEXT_ASSET_URL: ${{ vars.RANSOM_TEXT_ASSET_URL }}

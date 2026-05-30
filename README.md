@@ -10,6 +10,10 @@ npm install ransom-text
 
 React 17 or later is required as a peer dependency.
 
+## Demo
+
+Try the component in the [Storybook playground](https://ravevy.github.io/ransom-text/).
+
 ## Usage
 
 ```tsx

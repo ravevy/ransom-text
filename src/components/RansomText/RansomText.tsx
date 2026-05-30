@@ -23,6 +23,7 @@ export default function RansomText({
 
   return (
     <div
+      role="img"
       aria-label={text}
       className={wrapperClassName}
       style={{ width: "fit-content" }}

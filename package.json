@@ -1,17 +1,38 @@
 {
   "name": "ransom-text",
   "version": "0.1.0",
-  "private": true,
+  "description": "A React component that renders text as ransom letter-style cut-out images",
+  "keywords": ["react", "ransom-text", "typography", "component", "ui", "fun"],
+  "author": "ravevy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ravevy/ransom-text.git"
+  },
+  "homepage": "https://github.com/ravevy/ransom-text#readme",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
   "scripts": {
-    "build": "next build",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest"
   },
-  "dependencies": {
-    "next": "16.2.2",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.1.1",
@@ -19,7 +40,7 @@
     "@storybook/addon-docs": "^10.3.4",
     "@storybook/addon-onboarding": "^10.3.4",
     "@storybook/addon-vitest": "^10.3.4",
-    "@storybook/nextjs-vite": "^10.3.4",
+    "@storybook/react-vite": "^10.3.4",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -27,12 +48,15 @@
     "@vitest/browser-playwright": "^4.1.2",
     "@vitest/coverage-v8": "^4.1.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.2",
     "eslint-plugin-storybook": "^10.3.4",
     "playwright": "^1.59.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "storybook": "^10.3.4",
     "tailwindcss": "^4",
+    "tsup": "^8",
     "typescript": "^5",
+    "typescript-eslint": "^8",
     "vite": "^8.0.5",
     "vitest": "^4.1.2"
   }

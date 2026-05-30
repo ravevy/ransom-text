@@ -1,7 +1,9 @@
-import Image from "next/image";
 import { useMemo } from "react";
 
-interface RansomTextProps {
+const DEFAULT_ASSET_URL =
+  "https://ravevy.github.io/ransom-text-assets/letters/";
+
+export interface RansomTextProps {
   text: string;
   size?: number;
   wrapperClassName?: string;
@@ -12,21 +14,23 @@ export default function RansomText({
   size = 40,
   wrapperClassName,
 }: RansomTextProps) {
-  const pathToImage = process.env.NEXT_PUBLIC_ASSET_URL;
-
-  if (!pathToImage) {
-    console.error("ASSET_URL is not defined in the environment variables.");
-    return <div>Error: ASSET_URL is not defined.</div>;
-  }
+  const pathToImage = process.env.RANSOM_TEXT_ASSET_URL ?? DEFAULT_ASSET_URL;
 
   const memoizedLetters = useMemo(
     () => getRansomLetters(text, size, pathToImage),
-    [text, size],
+    [text, size, pathToImage],
   );
 
   return (
-    <div aria-label={text} className={`w-fit ${wrapperClassName ?? ""}`}>
-      <span aria-hidden="true" className="inline-flex flex-wrap">
+    <div
+      aria-label={text}
+      className={wrapperClassName}
+      style={{ width: "fit-content" }}
+    >
+      <span
+        aria-hidden="true"
+        style={{ display: "inline-flex", flexWrap: "wrap" }}
+      >
         {memoizedLetters}
       </span>
     </div>
@@ -83,16 +87,12 @@ const getRansomLetters = (
 
   const letters = string
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .toUpperCase()
     .split("")
     .filter((letter) => validLetters.includes(letter));
 
   return letters.map((letter, index) => {
-    if (!validLetters.includes(letter)) {
-      return;
-    }
-
     if (letter === " ") {
       return (
         <span key={`${letter}-${index}`} style={{ width: size }}>
@@ -117,12 +117,12 @@ const getRansomLetters = (
           maxHeight: size,
         }}
       >
-        <Image
+        <img
           src={`${pathToImage}${letter}/${fileNumber}.png`}
           alt={letter}
           width={size}
           height={size}
-          className="object-contain"
+          style={{ objectFit: "contain" }}
         />
       </span>
     );

@@ -6,6 +6,7 @@ const DEFAULT_ASSET_URL =
 export interface RansomTextProps {
   text: string;
   size?: number;
+  align?: "start" | "end" | "center";
   wrapperClassName?: string;
   assetUrl?: string;
 }
@@ -13,6 +14,7 @@ export interface RansomTextProps {
 export default function RansomText({
   text,
   size = 40,
+  align = "start",
   wrapperClassName,
   assetUrl: pathToImage = DEFAULT_ASSET_URL,
 }: RansomTextProps) {
@@ -23,7 +25,10 @@ export default function RansomText({
 
   return (
     <div role="img" aria-label={text} className={wrapperClassName}>
-      <span aria-hidden="true" style={{ display: "flex", flexWrap: "wrap" }}>
+      <span
+        aria-hidden="true"
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: align, columnGap: size }}
+      >
         {memoizedLetters}
       </span>
     </div>
@@ -117,9 +122,6 @@ const getRansomLetters = (
           </span>
         );
       })}
-      {wordIndex < words.length - 1 && (
-        <span style={{ width: size, display: "inline-flex" }} />
-      )}
     </span>
   ));
 };

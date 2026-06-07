@@ -22,16 +22,8 @@ export default function RansomText({
   );
 
   return (
-    <div
-      role="img"
-      aria-label={text}
-      className={wrapperClassName}
-      style={{ width: "fit-content" }}
-    >
-      <span
-        aria-hidden="true"
-        style={{ display: "inline-flex", flexWrap: "wrap" }}
-      >
+    <div role="img" aria-label={text} className={wrapperClassName}>
+      <span aria-hidden="true" style={{ display: "flex", flexWrap: "wrap" }}>
         {memoizedLetters}
       </span>
     </div>
@@ -86,46 +78,48 @@ const getRansomLetters = (
 ) => {
   const letterCount: Record<string, number> = {};
 
-  const letters = string
+  const normalized = string
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .toUpperCase()
     .split("")
-    .filter((letter) => validLetters.includes(letter));
+    .filter((letter) => validLetters.includes(letter))
+    .join("");
 
-  return letters.map((letter, index) => {
-    if (letter === " ") {
-      return (
-        <span key={`${letter}-${index}`} style={{ width: size }}>
-          {" "}
-        </span>
-      );
-    }
+  const words = normalized.split(" ");
 
-    const used = (letterCount[letter] ?? 0) + 1;
-    letterCount[letter] = used;
+  return words.map((word, wordIndex) => (
+    <span key={`word-${wordIndex}`} style={{ display: "inline-flex" }}>
+      {word.split("").map((letter, letterIndex) => {
+        const used = (letterCount[letter] ?? 0) + 1;
+        letterCount[letter] = used;
+        const fileNumber = (used - 1) % (maxFiles[letter] ?? 1);
 
-    const fileNumber = (used - 1) % (maxFiles[letter] ?? 1);
-
-    return (
-      <span
-        key={`${letter}-${index}`}
-        style={{
-          display: "flex",
-          width: size,
-          height: size,
-          maxWidth: size,
-          maxHeight: size,
-        }}
-      >
-        <img
-          src={`${pathToImage}${letter}/${fileNumber}.webp`}
-          alt={letter}
-          width={size}
-          height={size}
-          style={{ objectFit: "contain" }}
-        />
-      </span>
-    );
-  });
+        return (
+          <span
+            key={`${letter}-${wordIndex}-${letterIndex}`}
+            style={{
+              display: "flex",
+              width: "fit-content",
+              height: size,
+              maxWidth: size,
+              maxHeight: size,
+            }}
+          >
+            <img
+              src={`${pathToImage}${letter}/${fileNumber}.webp`}
+              alt={letter}
+              width={size}
+              height={size}
+              style={{ objectFit: "contain" }}
+              className="w-fit"
+            />
+          </span>
+        );
+      })}
+      {wordIndex < words.length - 1 && (
+        <span style={{ width: size, display: "inline-flex" }} />
+      )}
+    </span>
+  ));
 };

@@ -27,7 +27,12 @@ export default function RansomText({
     <div role="img" aria-label={text} className={wrapperClassName}>
       <span
         aria-hidden="true"
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: align, columnGap: size }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: align,
+          columnGap: size,
+        }}
       >
         {memoizedLetters}
       </span>
@@ -72,9 +77,47 @@ const maxFiles: Record<string, number> = {
   "7": 15,
   "8": 9,
   "9": 9,
+  "!": 7,
+  "#": 6,
+  "%": 8,
+  "&": 9,
+  "(": 5,
+  ")": 5,
+  "*": 6,
+  "+": 5,
+  ",": 4,
+  "-": 4,
+  ":": 3,
+  "?": 8,
+  "@": 3,
+  "[": 3,
+  "]": 3,
+  "^": 2,
 };
 
-const validLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+const specialCharFolders: Record<string, string> = {
+  "!": "bang",
+  "#": "num",
+  "%": "pct",
+  "&": "amp",
+  "(": "lparen",
+  ")": "rparen",
+  "*": "star",
+  "+": "plus",
+  ",": "comma",
+  "-": "dash",
+  ":": "colon",
+  "?": "quest",
+  "@": "at",
+  "[": "lbracket",
+  "]": "rbracket",
+  "^": "caret",
+};
+
+const validLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-,:!?()[]@*&#%^+ ";
+
+const getFolderName = (letter: string): string =>
+  specialCharFolders[letter] ?? letter;
 
 const getRansomLetters = (
   string: string,
@@ -99,6 +142,7 @@ const getRansomLetters = (
         const used = (letterCount[letter] ?? 0) + 1;
         letterCount[letter] = used;
         const fileNumber = (used - 1) % (maxFiles[letter] ?? 1);
+        const folder = getFolderName(letter);
 
         return (
           <span
@@ -112,7 +156,7 @@ const getRansomLetters = (
             }}
           >
             <img
-              src={`${pathToImage}${letter}/${fileNumber}.webp`}
+              src={`${pathToImage}${folder}/${fileNumber}.webp`}
               alt={letter}
               width={size}
               height={size}

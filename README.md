@@ -26,24 +26,60 @@ export default function App() {
 
 ## Props
 
-| Prop               | Type     | Default | Description                                                                |
-| ------------------ | -------- | ------- | -------------------------------------------------------------------------- |
-| `text`             | `string` | —       | The text to render as ransom letters                                       |
-| `size`             | `number` | `40`    | Width and height of each letter in pixels                                  |
-| `wrapperClassName` | `string` | —       | Optional class name applied to the wrapper `div`                           |
-| `assetUrl`         | `string` | —       | Base URL for letter images. Overrides the built-in default CDN             |
+| Prop               | Type                           | Default   | Description                                                    |
+| ------------------ | ------------------------------ | --------- | -------------------------------------------------------------- |
+| `text`             | `string`                       | —         | The text to render as ransom letters                           |
+| `size`             | `number`                       | `40`      | Width and height of each letter in pixels                      |
+| `align`            | `"start" \| "center" \| "end"` | `"start"` | Horizontal alignment of the text within the wrapper            |
+| `wrapperClassName` | `string`                       | —         | Optional class name applied to the wrapper `div`               |
+| `assetUrl`         | `string`                       | —         | Base URL for letter images. Overrides the built-in default CDN |
 
-Supported characters: `A–Z`, `0–9`, and spaces. Accented characters are normalized to their base form (e.g. `é` → `E`). Unsupported characters are silently dropped.
+### Supported characters
+
+Letters `A–Z`, digits `0–9`, spaces, and the following special characters:
+
+`!` `#` `%` `&` `(` `)` `*` `+` `,` `-` `:` `?` `@` `[` `]` `^`
+
+Accented characters are normalized to their base form (e.g. `é` → `E`). Unsupported characters are silently dropped.
+
+## Default asset library
+
+Letter images are served from the [ransom-text-assets](https://ravevy.github.io/ransom-text-assets/) library by default. Visit the page for more information about the included assets, available variants, and image counts per character.
 
 ## Custom asset URL
 
-Letter images are loaded from a hosted CDN by default. To use your own hosted assets, pass the `assetUrl` prop:
+Letter images are loaded from the default asset library mentioned above by default. To use your own hosted assets, pass the `assetUrl` prop:
 
 ```tsx
 <RansomText text="Hello" assetUrl="https://your-cdn.example.com/letters/" />
 ```
 
 The URL must end with a trailing slash. Images are expected at `{assetUrl}{LETTER}/{index}.webp` (e.g. `letters/A/0.webp`).
+
+### Special character folder names
+
+Special characters are not used directly as folder names. They map to the following named folders instead:
+
+| Character | Folder name |
+| --------- | ----------- |
+| `!`       | `bang`      |
+| `#`       | `num`       |
+| `%`       | `pct`       |
+| `&`       | `amp`       |
+| `(`       | `lparen`    |
+| `)`       | `rparen`    |
+| `*`       | `star`      |
+| `+`       | `plus`      |
+| `,`       | `comma`     |
+| `-`       | `dash`      |
+| `:`       | `colon`     |
+| `?`       | `quest`     |
+| `@`       | `at`        |
+| `[`       | `lbracket`  |
+| `]`       | `rbracket`  |
+| `^`       | `caret`     |
+
+For example, `?` resolves to `{assetUrl}quest/0.webp`.
 
 ## Accessibility
 

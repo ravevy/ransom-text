@@ -1,6 +1,6 @@
 {
   "name": "ransom-text",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A React component that renders text as ransom letter-style cut-out images",
   "keywords": [
     "react",
